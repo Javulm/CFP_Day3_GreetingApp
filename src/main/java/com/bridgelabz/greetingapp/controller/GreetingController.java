@@ -20,7 +20,7 @@ public class GreetingController {
         return new Greeting(counter.incrementAndGet(), String.format(template, greeting.getContent()));
     }
 
-    @PutMapping("/putMapping/{counter}")
+    @PutMapping("/putGreeting/{counter}")
     public Greeting sayHello(@PathVariable long counter, @RequestParam(value = "content") String content) {
         return new Greeting(counter, String.format(template, content));
     }
