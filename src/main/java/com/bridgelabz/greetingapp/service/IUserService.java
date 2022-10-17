@@ -9,4 +9,6 @@ public interface IUserService {
     User addUser(UserDto userdto);
     User getUserById(int id);
     List<User> getAllUsers();
+
+    User updateUser(UserDto userdto, int id);
 }

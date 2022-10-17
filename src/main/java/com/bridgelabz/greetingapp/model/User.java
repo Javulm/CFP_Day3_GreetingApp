@@ -51,4 +51,9 @@ public class User {
     public String toString() {
         return firstname + lastname;
     }
+
+    public void updateUser(UserDto userdto) {
+        this.firstname = userdto.firstname;
+        this.lastname = userdto.lastname;
+    }
 }
