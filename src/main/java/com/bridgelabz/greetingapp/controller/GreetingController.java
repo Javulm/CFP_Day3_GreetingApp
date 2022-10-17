@@ -9,6 +9,7 @@ import com.bridgelabz.greetingapp.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -56,5 +57,9 @@ public class GreetingController {
     public Greeting addUser(@RequestBody UserDto userdto) {
         userService.addUser(userdto);
         return greetingService.addGreeting(userdto);
+    }
+    @GetMapping("/getbyid/{id}")
+    public Optional<User> getUserById(@PathVariable int id) {
+        return userRepo.findById(id);
     }
 }

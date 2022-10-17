@@ -5,4 +5,5 @@ import com.bridgelabz.greetingapp.model.User;
 
 public interface IUserService {
     User addUser(UserDto userdto);
+    User getUserById(int id);
 }
