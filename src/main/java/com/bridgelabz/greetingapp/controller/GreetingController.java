@@ -1,20 +1,25 @@
 package com.bridgelabz.greetingapp.controller;
 
+import com.bridgelabz.greetingapp.dto.UserDto;
 import com.bridgelabz.greetingapp.model.Greeting;
 import com.bridgelabz.greetingapp.model.User;
+import com.bridgelabz.greetingapp.repository.UserRepository;
 import com.bridgelabz.greetingapp.service.IGreetingService;
+import com.bridgelabz.greetingapp.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
+@RequestMapping("/home")
 public class GreetingController {
-    private static final String template = "Hello %s";
-    private static AtomicLong counter = new AtomicLong();
-
+    private static final String template = "Hello %s!";
+    private static final AtomicLong counter = new AtomicLong();
+    @Autowired
+    private UserRepository userRepo;
+    @Autowired
+    private IUserService userService;
     @Autowired
     private IGreetingService greetingService;
 
@@ -30,7 +35,7 @@ public class GreetingController {
 
     @GetMapping("/getfullname")
     public Greeting satHello(User user) {
-        return new Greeting(counter.incrementAndGet(), String.format(template, user.getFirstName()+" "+user.getLastName()));
+        return new Greeting(counter.incrementAndGet(), String.format(template, user.getFirstname() + " " + user.getLastname()));
     }
 
     @PostMapping("/postgreeting")
@@ -46,5 +51,10 @@ public class GreetingController {
     @GetMapping("/getgreeting")
     public String greeting() {
         return greetingService.getMessage();
+    }
+    @PostMapping("/add")
+    public Greeting addUser(@RequestBody UserDto userdto) {
+        userService.addUser(userdto);
+        return greetingService.addGreeting(userdto);
     }
 }
