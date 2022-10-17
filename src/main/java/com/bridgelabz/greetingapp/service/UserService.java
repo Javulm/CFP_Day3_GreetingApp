@@ -29,4 +29,14 @@ public class UserService implements IUserService{
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }
+
+    @Override
+    public User updateUser(UserDto userdto, int id) {
+        User user = this.getUserById(id);
+        if (user != null) {
+            user.updateUser(userdto);
+            return userRepo.save(user);
+        }
+        return null;
+    }
 }

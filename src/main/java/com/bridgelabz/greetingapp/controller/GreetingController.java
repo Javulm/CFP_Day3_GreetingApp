@@ -70,4 +70,9 @@ public class GreetingController {
     public List<User> getUser() {
         return userService.getAllUsers();
     }
+@PutMapping("/update")
+public User updateUser(@RequestBody UserDto userdto, @RequestParam int id) {
+    User user = userService.updateUser(userdto, id);
+    return user;
+}
 }
