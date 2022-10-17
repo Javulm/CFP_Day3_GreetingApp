@@ -9,6 +9,7 @@ import com.bridgelabz.greetingapp.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -53,13 +54,20 @@ public class GreetingController {
     public String greeting() {
         return greetingService.getMessage();
     }
+
     @PostMapping("/add")
     public Greeting addUser(@RequestBody UserDto userdto) {
         userService.addUser(userdto);
         return greetingService.addGreeting(userdto);
     }
+
     @GetMapping("/getbyid/{id}")
     public Optional<User> getUserById(@PathVariable int id) {
         return userRepo.findById(id);
+    }
+
+    @GetMapping("/getall")
+    public List<User> getUser() {
+        return userService.getAllUsers();
     }
 }
