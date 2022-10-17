@@ -62,17 +62,22 @@ public class GreetingController {
     }
 
     @GetMapping("/getbyid/{id}")
-    public Optional<User> getUserById(@PathVariable int id) {
-        return userRepo.findById(id);
+    public User getUserById(@PathVariable int id) {
+        return userService.getUserById(id);
     }
 
     @GetMapping("/getall")
     public List<User> getUser() {
         return userService.getAllUsers();
     }
-@PutMapping("/update")
-public User updateUser(@RequestBody UserDto userdto, @RequestParam int id) {
-    User user = userService.updateUser(userdto, id);
-    return user;
-}
+
+    @PutMapping("/update")
+    public User updateUser(@RequestBody UserDto userdto, @RequestParam int id) {
+        return userService.updateUser(userdto, id);
+    }
+
+    @DeleteMapping("deletebyid/{id}")
+    public void deleteById(@PathVariable int id) {
+        userService.deleteUserById(id);
+    }
 }
